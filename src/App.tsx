@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { StarWarsCharacter, StarWarsStateType } from "./types/starWars";
-import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { requestApiData } from "./actions";
+import { HomeWrapper, MainWrapper, Wrapper } from "./style/styles";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -20,27 +20,22 @@ const App: React.FC = () => {
     dispatch(requestApiData(null));
   }, [dispatch]);
 
-  if (loading) {
-    return (
-      <div className="App">
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
   return (
-    <div>
-      {characters.map((item: StarWarsCharacter, index) => {
-        return (
-          <div key={index}>
-            <p>{item.name}</p>
-            <p>{item.gender}</p>
-            <p>{item.birth_year}</p>
-          </div>
-        );
-      })}
-      <button onClick={handleClick}>Next</button>
-    </div>
+    <MainWrapper>
+      <HomeWrapper>
+        <Wrapper>
+          {characters.map((item: StarWarsCharacter, index) => {
+            return (
+              <div key={index}>
+                <p>{item.name}</p>
+              </div>
+            );
+          })}
+          {loading && <div>Loading...</div>}
+          <button onClick={handleClick}>Next</button>
+        </Wrapper>
+      </HomeWrapper>
+    </MainWrapper>
   );
 };
 
