@@ -1,16 +1,17 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { RECEIVED_API_DATA, REQUEST_API_DATA } from "../actions";
-import { StarWarsCharacter, StarWarsInitialType } from "../types/starWars";
+import { StarWarsData, StarWarsStateType } from "../types/starWars";
 
-let initialState: StarWarsInitialType = {
+let initialState: StarWarsStateType = {
   characters: [],
-  loading: true
+  loading: true,
+  next: null
 };
 
 export let rootReducer = (
   state = initialState,
-  action: PayloadAction<StarWarsCharacter[]>
-): StarWarsInitialType => {
+  action: PayloadAction<StarWarsData>
+): StarWarsStateType => {
   switch (action.type) {
     case REQUEST_API_DATA:
       return {
@@ -20,9 +21,9 @@ export let rootReducer = (
 
     case RECEIVED_API_DATA:
       return {
-        ...state,
-        characters: action.payload,
-        loading: false
+        characters: state.characters.concat(action.payload.results),
+        loading: false,
+        next: action.payload.next
       };
     default:
       return state;

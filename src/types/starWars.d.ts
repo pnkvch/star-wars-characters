@@ -19,9 +19,25 @@ export interface StarWarsCharacter {
 
 export interface StarWarsData {
   results: Array<StarWarsCharacter>;
+  next: string | null;
 }
 
-interface StarWarsInitialType {
+interface StarWarsStateType {
   characters: StarWarsCharacter[];
   loading: boolean;
+  next: string | null;
+}
+
+interface AxiosResponse {
+  data: StarWarsData;
+}
+
+interface RequestApiDataAction {
+  type: string;
+  payload: string | null;
+}
+
+interface ReceiveApiDataAction {
+  type: string;
+  payload: StarWarsData | string | null;
 }
