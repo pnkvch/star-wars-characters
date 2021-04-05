@@ -7,9 +7,11 @@ import {
   Button,
   MainWrapper,
   Wrapper,
-  HeaderWrapper
+  HeaderWrapper,
+  PendingWrapper
 } from "./style/styles";
 import CharacterDetails from "./components/Details";
+import { PlaceholderGrid } from "./components/PlaceholderGrid";
 
 const App: React.FC = () => {
   const characters = useSelector(
@@ -17,7 +19,7 @@ const App: React.FC = () => {
   );
   const next = useSelector((state: StarWarsStateType) => state.next);
   const loading = useSelector((state: StarWarsStateType) => state.loading);
-  const [details, setDetails] = useState<Details>({
+  const [viewDetails, setViewDetails] = useState<Details>({
     id: "0",
     isShowing: false
   });
@@ -28,7 +30,7 @@ const App: React.FC = () => {
   };
 
   const handleViewDetailsClick = (e: React.SyntheticEvent) => {
-    setDetails((prevState: Details) => ({
+    setViewDetails((prevState: Details) => ({
       id: (e.target as Element).id,
       isShowing: !prevState.isShowing
     }));
@@ -38,15 +40,15 @@ const App: React.FC = () => {
     dispatch(requestApiData(null));
   }, [dispatch]);
 
-  if (details.isShowing) {
+  if (viewDetails.isShowing) {
     return (
       <MainWrapper>
         <HeaderWrapper>
           <h1>Star Wars Characters Catalogue</h1>
         </HeaderWrapper>
         <CharacterDetails
-          character={characters[parseInt(details.id)]}
-          setDetails={setDetails}
+          character={characters[parseInt(viewDetails.id)]}
+          setDetails={setViewDetails}
         />
       </MainWrapper>
     );
@@ -73,7 +75,15 @@ const App: React.FC = () => {
           );
         })}
       </Wrapper>
-      {loading && <div>Loading...</div>}
+      {loading && (
+        <PendingWrapper>
+          {Array(10)
+            .fill(1)
+            .map((_item, index) => {
+              return <PlaceholderGrid key={index} />;
+            })}
+        </PendingWrapper>
+      )}
       {!loading && <Button onClick={handleClick}>Next</Button>}
     </MainWrapper>
   );

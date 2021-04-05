@@ -147,8 +147,11 @@ export const DescriptionWrapper = styled.div`
 
 export const PendingWrapper = styled.div`
   font-size: 22px;
-  padding-top: "2em";
-  padding-left: "0";
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  margin: auto;
+  justify-content: space-evenly;
   @media ${device.tablet} {
     font-size: 16px;
   }
