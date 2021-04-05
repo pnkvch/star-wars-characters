@@ -23,6 +23,7 @@ const App: React.FC = () => {
     id: "0",
     isShowing: false
   });
+  const [afterDetails, setAfterDetails] = useState(false);
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -30,6 +31,7 @@ const App: React.FC = () => {
   };
 
   const handleViewDetailsClick = (e: React.SyntheticEvent) => {
+    sessionStorage.setItem("scrollPosition", `${window.pageYOffset}`);
     setViewDetails((prevState: Details) => ({
       id: (e.target as Element).id,
       isShowing: !prevState.isShowing
@@ -46,27 +48,42 @@ const App: React.FC = () => {
     }
   };
 
+  const handleScrollPosition = () => {
+    const scrollPosition = sessionStorage.getItem("scrollPosition");
+    console.log(scrollPosition);
+    if (scrollPosition) {
+      window.scrollTo(0, parseInt(scrollPosition));
+      sessionStorage.removeItem("scrollPosition");
+    }
+  };
+
   useEffect(() => {
     dispatch(requestApiData(null));
   }, [dispatch]);
 
   useEffect(() => {
-    const onScroll = function () {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        if (next) {
-          dispatch(requestApiData(next));
-        }
+    if (afterDetails) {
+      handleScrollPosition();
+      setAfterDetails(false);
+    }
+    const onScroll = () => {
+      if (
+        window.innerHeight + window.scrollY >= document.body.offsetHeight &&
+        next
+      ) {
+        dispatch(requestApiData(next));
       }
     };
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, [dispatch, next]);
+  }, [dispatch, next, afterDetails]);
 
   if (viewDetails.isShowing) {
     return (
       <CharacterDetails
         character={characters[parseInt(viewDetails.id)]}
         setDetails={setViewDetails}
+        setAfterDetails={setAfterDetails}
       />
     );
   }

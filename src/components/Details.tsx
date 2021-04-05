@@ -16,13 +16,19 @@ import { AxiosFilmsResponse, Details, StarWarsCharacter } from "../types";
 interface Props {
   character: StarWarsCharacter;
   setDetails: React.Dispatch<React.SetStateAction<Details>>;
+  setAfterDetails: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CharacterDetails = ({ character, setDetails }: Props) => {
+const CharacterDetails = ({
+  character,
+  setDetails,
+  setAfterDetails
+}: Props) => {
   const [names, setNames] = useState<AxiosFilmsResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const handleClick = () => {
     setDetails({ id: "", isShowing: false });
+    setAfterDetails(true);
   };
 
   useEffect(() => {
