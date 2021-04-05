@@ -18,13 +18,16 @@ export const Wrapper = styled.div`
   margin-top: 4.5em;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-between;
 
-  @media ${device.mobileS} {
-    justify-content: center;
-  }
   @media ${device.tablet} {
+    margin-top: 2.5em;
+  }
+
+  @media ${device.mobileL} {
     width: 93%;
+    margin-top: 2.5em;
+    font-size: 14px;
   }
 `;
 
@@ -35,11 +38,17 @@ export const HeaderWrapper = styled.header`
   top: 0;
   width: 100%;
   z-index: 1;
+
   h1 {
     color: ${secondaryFontColor};
   }
   @media ${device.tablet} {
     padding-left: 3%;
+    font-size: 0.8em;
+    h1 {
+      font-size: 1.5em;
+      padding-left: 2%;
+    }
   }
 `;
 
@@ -114,6 +123,14 @@ export const CharacterWrapper = styled.div`
     margin-top: 5px;
     margin-bottom: 5px;
   }
+
+  @media ${device.tablet} {
+    width: 25%;
+  }
+
+  @media ${device.mobileL} {
+    width: 35%;
+  }
 `;
 
 export const CharacterDetailsWrapper = styled.div`
@@ -130,7 +147,9 @@ export const CharacterDetailsWrapper = styled.div`
   align-items: center;
 
   @media ${device.tablet} {
-    width: 100%;
+    width: 85%;
+    height: 65%;
+    top: 17%;
   }
 `;
 
@@ -138,6 +157,14 @@ export const CharacterInfo = styled.div`
   height: 90%;
   display: flex;
   flex-direction: column;
+  width: 85%;
+
+  span {
+    padding: 5px;
+    :nth-child(7) {
+      padding-bottom: 15px;
+    }
+  }
 `;
 
 export const Overlay = styled.div`
@@ -153,19 +180,6 @@ export const Overlay = styled.div`
   cursor: pointer;
 `;
 
-export const DescriptionWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  color: #999999;
-  div {
-    margin-bottom: 0.7em;
-    span {
-      color: #cccccc;
-      margin-left: 0.2em;
-    }
-  }
-`;
-
 export const PendingWrapper = styled.div`
   font-size: 22px;
   display: flex;
@@ -173,20 +187,16 @@ export const PendingWrapper = styled.div`
   width: 95%;
   margin: auto;
   justify-content: space-evenly;
+  color: ${secondaryFontColor};
   @media ${device.tablet} {
     font-size: 16px;
   }
 `;
 
-// export const ProgressBarWrapper = styled.div.attrs(({ scroll }) => ({
-//   style: {
-//     width: scroll
-//   }
-// }))`
-//   position: fixed;
-//   height: 3px;
-//   background-color: #cccccc;
-//   z-index: 1;
-//   top: 63px;
-//   transition: width 0.1s ease-out;
-// `;
+export const FilmTitles = styled.p`
+  padding: 5px;
+  margin: 5px;
+  @media ${device.laptop} {
+    margin: 0;
+  }
+`;

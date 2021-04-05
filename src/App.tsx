@@ -11,7 +11,7 @@ import {
   PendingWrapper
 } from "./style/styles";
 import CharacterDetails from "./components/Details";
-import { PlaceholderGrid } from "./components/PlaceholderGrid";
+import Loader from "react-loader-spinner";
 
 const App: React.FC = () => {
   const characters = useSelector(
@@ -36,21 +36,38 @@ const App: React.FC = () => {
     }));
   };
 
+  const handleBottom = () => {
+    if (!next && !loading) {
+      return;
+    }
+
+    if (!loading) {
+      return <Button onClick={handleClick}>Next</Button>;
+    }
+  };
+
   useEffect(() => {
     dispatch(requestApiData(null));
   }, [dispatch]);
 
+  useEffect(() => {
+    const onScroll = function () {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        if (next) {
+          dispatch(requestApiData(next));
+        }
+      }
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [dispatch, next]);
+
   if (viewDetails.isShowing) {
     return (
-      <MainWrapper>
-        <HeaderWrapper>
-          <h1>Star Wars Characters Catalogue</h1>
-        </HeaderWrapper>
-        <CharacterDetails
-          character={characters[parseInt(viewDetails.id)]}
-          setDetails={setViewDetails}
-        />
-      </MainWrapper>
+      <CharacterDetails
+        character={characters[parseInt(viewDetails.id)]}
+        setDetails={setViewDetails}
+      />
     );
   }
 
@@ -81,14 +98,10 @@ const App: React.FC = () => {
       </Wrapper>
       {loading && (
         <PendingWrapper>
-          {Array(10)
-            .fill(1)
-            .map((_item, index) => {
-              return <PlaceholderGrid key={index} />;
-            })}
+          <Loader type="ThreeDots" color="#f05d5e" height="80" width="80" />
         </PendingWrapper>
       )}
-      {!loading && <Button onClick={handleClick}>Next</Button>}
+      {handleBottom()}
     </MainWrapper>
   );
 };
