@@ -1,12 +1,15 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 
 import { REQUEST_API_DATA, receivedApiData } from "../actions/index";
-import { AxiosResponse, RequestApiDataAction } from "../types/starWars";
+import { AxiosCharacterResponse, RequestApiDataAction } from "../types";
 import { fetchData } from "./fetchApi";
 
 function* fetchApiData(action: RequestApiDataAction) {
   try {
-    const { data }: AxiosResponse = yield call(fetchData, action.payload);
+    const { data }: AxiosCharacterResponse = yield call(
+      fetchData,
+      action.payload
+    );
     console.log(data);
 
     yield put(receivedApiData(data));

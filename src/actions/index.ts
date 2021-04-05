@@ -1,8 +1,8 @@
 import {
   RequestApiDataAction,
   ReceiveApiDataAction,
-  StarWarsData
-} from "../types/starWars";
+  StarWarsResponseData
+} from "../types";
 
 export const REQUEST_API_DATA = "REQUEST_API_DATA";
 export const RECEIVED_API_DATA = "RECEIVED_API_DATA";
@@ -14,7 +14,9 @@ export const requestApiData = (query: string | null): RequestApiDataAction => {
   };
 };
 
-export const receivedApiData = (data: StarWarsData): ReceiveApiDataAction => {
+export const receivedApiData = (
+  data: StarWarsResponseData
+): ReceiveApiDataAction => {
   return {
     type: RECEIVED_API_DATA,
     payload: data

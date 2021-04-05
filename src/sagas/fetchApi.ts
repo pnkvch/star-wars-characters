@@ -1,7 +1,9 @@
 import axios from "axios";
-import { StarWarsData } from "../types/starWars";
+import { StarWarsResponseData } from "../types";
 
-export async function fetchData(query: string | null): Promise<StarWarsData> {
+export async function fetchData(
+  query: string | null
+): Promise<StarWarsResponseData> {
   const url = query ? query : "https://swapi.dev/api/people/";
 
   return await axios.get(url);

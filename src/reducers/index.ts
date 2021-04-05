@@ -1,6 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { RECEIVED_API_DATA, REQUEST_API_DATA } from "../actions";
-import { StarWarsData, StarWarsStateType } from "../types/starWars";
+import { StarWarsResponseData, StarWarsStateType } from "../types";
 
 let initialState: StarWarsStateType = {
   characters: [],
@@ -10,7 +10,7 @@ let initialState: StarWarsStateType = {
 
 export let rootReducer = (
   state = initialState,
-  action: PayloadAction<StarWarsData>
+  action: PayloadAction<StarWarsResponseData>
 ): StarWarsStateType => {
   switch (action.type) {
     case REQUEST_API_DATA:
