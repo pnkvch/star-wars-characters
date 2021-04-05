@@ -8,6 +8,10 @@ const primaryFontColor = "#272932";
 const secondaryFontColor = "#e7ecef";
 const primaryFontSize = "1em";
 
+interface CharacterProps {
+  isCharacter?: boolean;
+}
+
 export const Wrapper = styled.div`
   width: 95%;
   margin: auto;
@@ -39,9 +43,12 @@ export const HeaderWrapper = styled.header`
   }
 `;
 
-export const Button = styled.button`
-  color: ${secondaryFontColor};
-  background-color: #f05d5e;
+export const Button = styled.button<CharacterProps>`
+  color: ${props =>
+    props.isCharacter ? accentBackgroundColor : secondaryFontColor};
+  background-color: ${props =>
+    props.isCharacter ? secondaryFontColor : accentBackgroundColor};
+
   border-radius: 19px;
   padding: 0.5em;
   min-width: 4.6em;
@@ -52,6 +59,14 @@ export const Button = styled.button`
   outline: none;
   cursor: pointer;
   margin-right: 0.5em;
+  transition: 0.1s ease-in;
+
+  &:hover {
+    color: ${props =>
+      props.isCharacter ? secondaryFontColor : accentBackgroundColor};
+    background-color: ${props =>
+      props.isCharacter ? accentBackgroundColor : secondaryFontColor};
+  }
 `;
 
 export const MainWrapper = styled.div`
@@ -81,6 +96,12 @@ export const CharacterWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+  transition: 0.1s ease-in;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 
   h3 {
     color: #cccccc;

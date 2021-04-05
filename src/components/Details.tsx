@@ -40,7 +40,9 @@ const CharacterDetails = ({ character, setDetails }: Props) => {
             return <span key={index}>{item.data.title}</span>;
           })}
         </CharacterInfo>
-        <Button onClick={handleClick}>Back To Collection</Button>
+        <Button onClick={handleClick} isCharacter={true}>
+          Back To Collection
+        </Button>
       </CharacterDetailsWrapper>
       <Overlay />
     </>

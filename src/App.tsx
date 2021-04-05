@@ -68,7 +68,11 @@ const App: React.FC = () => {
               </span>
               <span>Birth Year: {item.birth_year}</span>
               <span>Gender: {item.gender}</span>
-              <Button id={`${index}`} onClick={handleViewDetailsClick}>
+              <Button
+                id={`${index}`}
+                onClick={handleViewDetailsClick}
+                isCharacter={true}
+              >
                 View details
               </Button>
             </CharacterWrapper>
