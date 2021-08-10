@@ -10,10 +10,11 @@ function* fetchApiData(action: RequestApiDataAction) {
       fetchData,
       action.payload
     );
+    console.log("Request made.");
 
     yield put(receivedApiData(data));
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 }
 
