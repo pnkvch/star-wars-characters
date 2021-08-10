@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Details, StarWarsCharacter, StarWarsStateType } from "./types";
 import { useDispatch, useSelector } from "react-redux";
 import { requestApiData } from "./actions";
@@ -23,7 +23,7 @@ const App: React.FC = () => {
     id: "0",
     isShowing: false
   });
-  const [saveScrollPostion, setSaveScrollPosition] = useState(true);
+  const [saveScrollPostion, setSaveScrollPosition] = useState(0);
   const [afterDetails, setAfterDetails] = useState(false);
   const dispatch = useDispatch();
 
@@ -32,7 +32,7 @@ const App: React.FC = () => {
   };
 
   const handleViewDetailsClick = (e: React.SyntheticEvent) => {
-    setSaveScrollPosition(state => !state);
+    setSaveScrollPosition(window.pageYOffset);
     setViewDetails((prevState: Details) => ({
       id: (e.target as Element).id,
       isShowing: !prevState.isShowing
@@ -49,18 +49,13 @@ const App: React.FC = () => {
     }
   };
 
-  const scrollTo = useMemo(() => {
-    return window.pageYOffset;
-  }, [saveScrollPostion]);
-
   useEffect(() => {
     dispatch(requestApiData(null));
   }, [dispatch]);
 
   useLayoutEffect(() => {
-    console.log(`Memo ${scrollTo}`);
-    if (scrollTo) {
-      window.scrollTo(0, scrollTo);
+    if (saveScrollPostion) {
+      window.scrollTo(0, saveScrollPostion);
     }
     if (afterDetails) {
       setAfterDetails(false);
@@ -75,7 +70,7 @@ const App: React.FC = () => {
     };
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, [dispatch, next, afterDetails, scrollTo]);
+  }, [dispatch, next, afterDetails, saveScrollPostion]);
 
   if (viewDetails.isShowing) {
     return (
