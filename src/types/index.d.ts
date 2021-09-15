@@ -32,10 +32,6 @@ interface StarWarsStateType {
   next: string | null;
 }
 
-interface AxiosCharacterResponse {
-  data: StarWarsResponseData;
-}
-
 interface AxiosFilmsResponse {
   data: StarWarsFilmResponseData;
 }
