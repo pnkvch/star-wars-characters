@@ -17,7 +17,7 @@ export interface StarWarsCharacter {
   url: string;
 }
 
-interface StarWarsFilmResponseData {
+export interface StarWarsFilmResponseData {
   title: string;
 }
 
@@ -26,27 +26,27 @@ export interface StarWarsResponseData {
   next: string | null;
 }
 
-interface StarWarsStateType {
+export interface StarWarsStateType {
   characters: StarWarsCharacter[];
   loading: boolean;
   next: string | null;
 }
 
-interface AxiosFilmsResponse {
+export interface AxiosFilmsResponse {
   data: StarWarsFilmResponseData;
 }
 
-interface RequestApiDataAction {
+export interface RequestApiDataAction {
   type: string;
   payload: string | null;
 }
 
-interface ReceiveApiDataAction {
+export interface ReceiveApiDataAction {
   type: string;
   payload: StarWarsResponseData | string | null;
 }
 
-interface Details {
+export interface Details {
   id: string;
   isShowing: boolean;
 }
