@@ -32,10 +32,6 @@ export interface StarWarsStateType {
   next: string | null;
 }
 
-export interface AxiosFilmsResponse {
-  data: StarWarsFilmResponseData;
-}
-
 export interface RequestApiDataAction {
   type: string;
   payload: string | null;

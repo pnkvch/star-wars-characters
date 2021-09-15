@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Loader from "react-loader-spinner";
 import {
@@ -11,7 +10,7 @@ import {
   Overlay,
   PendingWrapper
 } from "../style/styles";
-import { AxiosFilmsResponse, Details, StarWarsCharacter } from "../types";
+import {StarWarsFilmResponseData, Details, StarWarsCharacter } from "../types";
 
 interface Props {
   character: StarWarsCharacter;
@@ -24,7 +23,7 @@ const CharacterDetails = ({
   setDetails,
   setAfterDetails
 }: Props) => {
-  const [names, setNames] = useState<AxiosFilmsResponse[]>([]);
+  const [names, setNames] = useState<StarWarsFilmResponseData[]>([]);
   const [loading, setLoading] = useState(true);
   const handleClick = () => {
     setDetails({ id: "", isShowing: false });
@@ -32,16 +31,19 @@ const CharacterDetails = ({
   };
 
   useEffect(() => {
-    const requests = character.films.map(item => {
-      return axios.get(item);
+    const requests = character.films.map(async item => {
+      const x = await fetch(item)
+      return await x.json();
     });
-    axios.all(requests).then(
-      axios.spread((...response) => {
-        setNames(response);
+    console.log(requests)
+    Promise.all(requests).then(
+      results => {
+        setNames(results);
         setLoading(false);
       })
-    );
+    
   }, [character.films]);
+
 
   return (
     <MainWrapper>
@@ -86,7 +88,7 @@ const CharacterDetails = ({
             </PendingWrapper>
           )}
           {names.map((item, index) => {
-            return <FilmTitles key={index}>- {item.data.title}</FilmTitles>;
+            return <FilmTitles key={index}>- {item.title}</FilmTitles>;
           })}
         </CharacterInfo>
         <Button onClick={handleClick} isCharacter={true}>
