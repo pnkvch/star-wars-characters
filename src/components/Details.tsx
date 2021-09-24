@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Loader from "react-loader-spinner";
+import { useDispatch, useSelector } from "react-redux";
+import { requestCharacterMoviesData } from "../actions";
 import {
   Button,
   CharacterDetailsWrapper,
@@ -8,42 +10,33 @@ import {
   HeaderWrapper,
   MainWrapper,
   Overlay,
-  PendingWrapper
+  PendingWrapper,
 } from "../style/styles";
-import {StarWarsFilmResponseData, Details, StarWarsCharacter } from "../types";
+import {
+  Details,
+  StarWarsCharacter,
+  StarWarsStateType,
+  StarWarsMovie,
+} from "../types";
 
 interface Props {
   character: StarWarsCharacter;
   setDetails: React.Dispatch<React.SetStateAction<Details>>;
-  setAfterDetails: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CharacterDetails = ({
-  character,
-  setDetails,
-  setAfterDetails
-}: Props) => {
-  const [names, setNames] = useState<StarWarsFilmResponseData[]>([]);
-  const [loading, setLoading] = useState(true);
+const CharacterDetails = ({ character, setDetails }: Props) => {
+  const { movies, loading } = useSelector(
+    (state: StarWarsStateType) => state.moviesReducer
+  );
+  const dispatch = useDispatch();
+
   const handleClick = () => {
     setDetails({ id: "", isShowing: false });
-    setAfterDetails(true);
   };
 
   useEffect(() => {
-    const requests = character.films.map(async item => {
-      const x = await fetch(item)
-      return await x.json();
-    });
-    console.log(requests)
-    Promise.all(requests).then(
-      results => {
-        setNames(results);
-        setLoading(false);
-      })
-    
-  }, [character.films]);
-
+    dispatch(requestCharacterMoviesData(character.films));
+  }, [character.films, dispatch]);
 
   return (
     <MainWrapper>
@@ -87,7 +80,7 @@ const CharacterDetails = ({
               <Loader type="ThreeDots" color="#f05d5e" height="80" width="80" />
             </PendingWrapper>
           )}
-          {names.map((item, index) => {
+          {movies.map((item: StarWarsMovie, index) => {
             return <FilmTitles key={index}>- {item.title}</FilmTitles>;
           })}
         </CharacterInfo>

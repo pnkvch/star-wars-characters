@@ -1,24 +1,46 @@
 import {
   RequestApiDataAction,
-  ReceiveApiDataAction,
-  StarWarsResponseData
+  ReceivedApiDataAction,
+  StarWarsResponseData,
+  RequestCharacterDataAction,
+  ReceivedCharacterDataAction,
+  StarWarsMovie,
 } from "../types";
 
 export const REQUEST_API_DATA = "REQUEST_API_DATA";
+export const REQUEST_CHARACTER_DATA = "REQUEST_CHARACTER_DATA";
 export const RECEIVED_API_DATA = "RECEIVED_API_DATA";
+export const RECEIVED_CHARACTER_DATA = "RECEIVED_CHARACTER_DATA";
 
-export const requestApiData = (query: string | null): RequestApiDataAction => {
+export const requestAPIData = (query: string | null): RequestApiDataAction => {
   return {
     type: REQUEST_API_DATA,
-    payload: query
+    payload: query,
+  };
+};
+export const requestCharacterMoviesData = (
+  query: string[]
+): RequestCharacterDataAction => {
+  return {
+    type: REQUEST_CHARACTER_DATA,
+    payload: query,
   };
 };
 
-export const receivedApiData = (
+export const receivedAPIData = (
   data: StarWarsResponseData
-): ReceiveApiDataAction => {
+): ReceivedApiDataAction => {
   return {
     type: RECEIVED_API_DATA,
-    payload: data
+    payload: data,
+  };
+};
+
+export const receivedCharacterMoviesData = (
+  data: Promise<StarWarsMovie[]>
+): ReceivedCharacterDataAction => {
+  return {
+    type: RECEIVED_CHARACTER_DATA,
+    payload: data,
   };
 };

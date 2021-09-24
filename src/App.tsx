@@ -1,41 +1,38 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Details, StarWarsCharacter, StarWarsStateType } from "./types";
 import { useDispatch, useSelector } from "react-redux";
-import { requestApiData } from "./actions";
+import { requestAPIData } from "./actions";
 import {
   CharacterWrapper,
   Button,
   MainWrapper,
   Wrapper,
   HeaderWrapper,
-  PendingWrapper
+  PendingWrapper,
 } from "./style/styles";
 import CharacterDetails from "./components/Details";
 import Loader from "react-loader-spinner";
 
 const App: React.FC = () => {
-  const characters = useSelector(
-    (state: StarWarsStateType) => state.characters
+  const { characters, next, loading } = useSelector(
+    (state: StarWarsStateType) => state.characterReducer
   );
-  const next = useSelector((state: StarWarsStateType) => state.next);
-  const loading = useSelector((state: StarWarsStateType) => state.loading);
   const [viewDetails, setViewDetails] = useState<Details>({
     id: "0",
-    isShowing: false
+    isShowing: false,
   });
   const [saveScrollPostion, setSaveScrollPosition] = useState(0);
-  const [afterDetails, setAfterDetails] = useState(false);
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(requestApiData(next));
+    dispatch(requestAPIData(next));
   };
 
   const handleViewDetailsClick = (e: React.SyntheticEvent) => {
     setSaveScrollPosition(window.pageYOffset);
     setViewDetails((prevState: Details) => ({
       id: (e.target as Element).id,
-      isShowing: !prevState.isShowing
+      isShowing: !prevState.isShowing,
     }));
   };
 
@@ -50,34 +47,34 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(requestApiData(null));
+    dispatch(requestAPIData(null));
   }, [dispatch]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (saveScrollPostion) {
       window.scrollTo(0, saveScrollPostion);
     }
-    if (afterDetails) {
-      setAfterDetails(false);
-    }
+  }, [viewDetails.isShowing, saveScrollPostion]);
+
+  useLayoutEffect(() => {
     const onScroll = () => {
       if (
         window.innerHeight + window.scrollY >= document.body.offsetHeight &&
-        next
+        next &&
+        !viewDetails.isShowing
       ) {
-        dispatch(requestApiData(next));
+        dispatch(requestAPIData(next));
       }
     };
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, [dispatch, next, afterDetails, saveScrollPostion]);
+  }, [dispatch, next, saveScrollPostion, viewDetails.isShowing]);
 
   if (viewDetails.isShowing) {
     return (
       <CharacterDetails
         character={characters[parseInt(viewDetails.id)]}
         setDetails={setViewDetails}
-        setAfterDetails={setAfterDetails}
       />
     );
   }
@@ -96,6 +93,14 @@ const App: React.FC = () => {
               </span>
               <span>Birth Year: {item.birth_year}</span>
               <span>Gender: {item.gender}</span>
+              <span>Eye Color: {item.eye_color}</span>
+              <span>Skin Color: {item.skin_color}</span>
+              <span>
+                Height:{" "}
+                {item.height.includes("unknown")
+                  ? item.height
+                  : `${item.height} cm`}
+              </span>
               <Button
                 id={`${index}`}
                 onClick={handleViewDetailsClick}

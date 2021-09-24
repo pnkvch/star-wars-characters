@@ -1,31 +1,8 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { RECEIVED_API_DATA, REQUEST_API_DATA } from "../actions";
-import { StarWarsResponseData, StarWarsStateType } from "../types";
+import { combineReducers } from "redux";
+import { characterReducer } from "./character";
+import { moviesReducer } from "./movies";
 
-let initialState: StarWarsStateType = {
-  characters: [],
-  loading: true,
-  next: null
-};
-
-export let rootReducer = (
-  state = initialState,
-  action: PayloadAction<StarWarsResponseData>
-): StarWarsStateType => {
-  switch (action.type) {
-    case REQUEST_API_DATA:
-      return {
-        ...state,
-        loading: true
-      };
-
-    case RECEIVED_API_DATA:
-      return {
-        characters: state.characters.concat(action.payload.results),
-        loading: false,
-        next: action.payload.next
-      };
-    default:
-      return state;
-  }
-};
+export default combineReducers({
+  characterReducer,
+  moviesReducer,
+});
