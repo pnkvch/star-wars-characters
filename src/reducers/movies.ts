@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { RECEIVED_CHARACTER_DATA, REQUEST_CHARACTER_DATA } from "../actions";
+import { RECEIVED_CHARACTER_DATA, REQUEST_CHARACTER_DATA } from "../constants";
 import { StarWarsMovie, StarWarsMoviesStateType } from "../types";
 
 let initialMovieState: StarWarsMoviesStateType = {

@@ -1,11 +1,7 @@
 import { call, put, takeLatest, all } from "redux-saga/effects";
 
-import {
-  REQUEST_API_DATA,
-  receivedAPIData,
-  receivedCharacterMoviesData,
-  REQUEST_CHARACTER_DATA,
-} from "../actions/index";
+import { receivedAPIData, receivedCharacterMoviesData } from "../actions/index";
+import { REQUEST_API_DATA, REQUEST_CHARACTER_DATA } from "../constants";
 import {
   RequestApiDataAction,
   RequestCharacterDataAction,

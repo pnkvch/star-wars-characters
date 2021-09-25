@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Details, StarWarsCharacter, StarWarsStateType } from "./types";
 import { useDispatch, useSelector } from "react-redux";
 import { requestAPIData } from "./actions";
@@ -56,7 +56,7 @@ const App: React.FC = () => {
     }
   }, [viewDetails.isShowing, saveScrollPostion]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const onScroll = () => {
       if (
         window.innerHeight + window.scrollY >= document.body.offsetHeight &&

@@ -1,4 +1,10 @@
 import {
+  RECEIVED_API_DATA,
+  RECEIVED_CHARACTER_DATA,
+  REQUEST_API_DATA,
+  REQUEST_CHARACTER_DATA,
+} from "../constants";
+import {
   RequestApiDataAction,
   ReceivedApiDataAction,
   StarWarsResponseData,
@@ -6,11 +12,6 @@ import {
   ReceivedCharacterDataAction,
   StarWarsMovie,
 } from "../types";
-
-export const REQUEST_API_DATA = "REQUEST_API_DATA";
-export const REQUEST_CHARACTER_DATA = "REQUEST_CHARACTER_DATA";
-export const RECEIVED_API_DATA = "RECEIVED_API_DATA";
-export const RECEIVED_CHARACTER_DATA = "RECEIVED_CHARACTER_DATA";
 
 export const requestAPIData = (query: string | null): RequestApiDataAction => {
   return {
