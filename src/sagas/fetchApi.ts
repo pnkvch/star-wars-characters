@@ -12,7 +12,7 @@ export async function fetchData(
 export async function fetchCharacter(
   movies: string[]
 ): Promise<StarWarsMovie[]> {
-  const requests = movies.map(async (item) => {
+  const requests: Promise<StarWarsMovie>[] = movies.map(async (item) => {
     const x = await fetch(item);
     return await x.json();
   });

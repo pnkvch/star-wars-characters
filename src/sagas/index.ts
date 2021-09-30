@@ -14,8 +14,6 @@ function* fetchApiData(action: RequestApiDataAction) {
   try {
     const data: StarWarsResponseData = yield call(fetchData, action.payload);
 
-    console.log(data);
-
     yield put(receivedAPIData(data));
   } catch (e) {
     console.error(e);

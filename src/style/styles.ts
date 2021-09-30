@@ -53,9 +53,9 @@ export const HeaderWrapper = styled.header`
 `;
 
 export const Button = styled.button<CharacterProps>`
-  color: ${props =>
+  color: ${(props) =>
     props.isCharacter ? accentBackgroundColor : secondaryFontColor};
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.isCharacter ? secondaryFontColor : accentBackgroundColor};
 
   border-radius: 19px;
@@ -71,9 +71,9 @@ export const Button = styled.button<CharacterProps>`
   transition: 0.1s ease-in;
 
   &:hover {
-    color: ${props =>
+    color: ${(props) =>
       props.isCharacter ? secondaryFontColor : accentBackgroundColor};
-    background-color: ${props =>
+    background-color: ${(props) =>
       props.isCharacter ? accentBackgroundColor : secondaryFontColor};
   }
 `;
