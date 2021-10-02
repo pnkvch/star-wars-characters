@@ -1,5 +1,7 @@
 # Star Wars Character Catalogue
 
+## Live Demo: [Link](https://pnkvch.github.io/star-wars-characters/)
+
 Install the necessary dependencies:
 
 ### `yarn install`
