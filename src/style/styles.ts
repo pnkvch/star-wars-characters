@@ -124,6 +124,10 @@ export const CharacterWrapper = styled.div`
     margin-bottom: 5px;
   }
 
+  @media ${device.laptop} {
+    width: 19%;
+  }
+
   @media ${device.tablet} {
     width: 25%;
   }
