@@ -1,6 +1,6 @@
 # Star Wars Character Catalogue
 
-## <a href="https://pnkvch.github.io/star-wars-characters/" target="_blank">Live Demo</a>
+## <a href="https://pnkvch.github.io/star-wars-characters/" target="_blank" rel="noopener noreferrer">Live Demo</a>
 
 Install the necessary dependencies:
 
