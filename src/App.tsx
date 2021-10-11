@@ -22,9 +22,11 @@ const App: React.FC = () => {
     isShowing: false,
   });
   const [saveScrollPostion, setSaveScrollPosition] = useState(0);
+  const [showNextBtn, setShowNextBtn] = useState(true);
   const dispatch = useDispatch();
 
   const handleClick = () => {
+    setShowNextBtn(false);
     dispatch(requestAPIData(next));
   };
 
@@ -37,12 +39,8 @@ const App: React.FC = () => {
   };
 
   const handleBottom = () => {
-    if (!next && !loading) {
-      return;
-    }
-
-    if (!loading) {
-      return <Button onClick={handleClick}>Next</Button>;
+    if (showNextBtn && !loading) {
+      return <Button onClick={handleClick}>Load More</Button>;
     }
   };
 
@@ -61,7 +59,8 @@ const App: React.FC = () => {
       if (
         window.innerHeight + window.scrollY >= document.body.offsetHeight &&
         next &&
-        !viewDetails.isShowing
+        !viewDetails.isShowing &&
+        !showNextBtn
       ) {
         dispatch(requestAPIData(next));
       }
@@ -70,7 +69,14 @@ const App: React.FC = () => {
       window.addEventListener("scroll", onScroll);
     }
     return () => window.removeEventListener("scroll", onScroll);
-  }, [dispatch, loading, next, saveScrollPostion, viewDetails.isShowing]);
+  }, [
+    dispatch,
+    loading,
+    next,
+    saveScrollPostion,
+    showNextBtn,
+    viewDetails.isShowing,
+  ]);
 
   if (viewDetails.isShowing) {
     return (
