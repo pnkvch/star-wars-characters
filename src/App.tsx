@@ -57,7 +57,8 @@ const App: React.FC = () => {
   useEffect(() => {
     const onScroll = () => {
       if (
-        window.innerHeight + window.scrollY >= document.body.offsetHeight &&
+        window.innerHeight + window.scrollY >=
+          document.body.offsetHeight - 100 &&
         next &&
         !viewDetails.isShowing &&
         !showNextBtn
