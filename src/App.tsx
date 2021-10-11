@@ -66,9 +66,11 @@ const App: React.FC = () => {
         dispatch(requestAPIData(next));
       }
     };
-    window.addEventListener("scroll", onScroll);
+    if (!loading) {
+      window.addEventListener("scroll", onScroll);
+    }
     return () => window.removeEventListener("scroll", onScroll);
-  }, [dispatch, next, saveScrollPostion, viewDetails.isShowing]);
+  }, [dispatch, loading, next, saveScrollPostion, viewDetails.isShowing]);
 
   if (viewDetails.isShowing) {
     return (
