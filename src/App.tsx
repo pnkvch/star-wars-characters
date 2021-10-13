@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Details, StarWarsCharacter, StarWarsStateType } from "./types";
+import { Details, StarWarsStateType } from "./types";
 import { useDispatch, useSelector } from "react-redux";
 import { requestAPIData } from "./actions";
 import {
-  CharacterWrapper,
   Button,
   MainWrapper,
   Wrapper,
   HeaderWrapper,
   PendingWrapper,
+  InputWrapper,
 } from "./style/styles";
 import CharacterDetails from "./components/Details";
 import Loader from "react-loader-spinner";
+import Characters from "./components/Characters";
 
 const App: React.FC = () => {
   const { characters, next, loading } = useSelector(
@@ -23,6 +24,7 @@ const App: React.FC = () => {
   });
   const [saveScrollPostion, setSaveScrollPosition] = useState(0);
   const [showNextBtn, setShowNextBtn] = useState(true);
+  const [value, setValue] = useState("");
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -39,9 +41,13 @@ const App: React.FC = () => {
   };
 
   const handleBottom = () => {
-    if (showNextBtn && !loading) {
+    if (showNextBtn && !loading && !value) {
       return <Button onClick={handleClick}>Load More</Button>;
     }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
   };
 
   useEffect(() => {
@@ -88,38 +94,34 @@ const App: React.FC = () => {
     );
   }
 
+  const searchResults = () => {
+    if (!value) {
+      return characters;
+    }
+    return characters.filter((item) =>
+      item.name.toLowerCase().includes(value.toLowerCase())
+    );
+  };
+
+  console.log(characters);
+
   return (
     <MainWrapper>
       <HeaderWrapper>
         <h1>Star Wars Characters Catalogue</h1>
       </HeaderWrapper>
       <Wrapper>
-        {characters.map((item: StarWarsCharacter, index) => {
-          return (
-            <CharacterWrapper key={index}>
-              <span>
-                Name: <span>{item.name}</span>
-              </span>
-              <span>Birth Year: {item.birth_year}</span>
-              <span>Gender: {item.gender}</span>
-              <span>Eye Color: {item.eye_color}</span>
-              <span>Skin Color: {item.skin_color}</span>
-              <span>
-                Height:{" "}
-                {item.height.includes("unknown")
-                  ? item.height
-                  : `${item.height} cm`}
-              </span>
-              <Button
-                id={`${index}`}
-                onClick={handleViewDetailsClick}
-                isCharacter={true}
-              >
-                View details
-              </Button>
-            </CharacterWrapper>
-          );
-        })}
+        <InputWrapper
+          type="search"
+          placeholder="Search character"
+          value={value}
+          onChange={handleInputChange}
+        />
+
+        <Characters
+          characters={searchResults()}
+          handleViewDetailsClick={handleViewDetailsClick}
+        />
       </Wrapper>
       {loading && (
         <PendingWrapper>

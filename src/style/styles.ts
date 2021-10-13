@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import SearchIcon from "../images/SearchIcon.svg";
 import { device } from "./sizes";
 
 const fontFamily = '"Roboto", sans-serif';
@@ -18,7 +19,6 @@ export const Wrapper = styled.div`
   margin-top: 4.5em;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
 
   @media ${device.tablet} {
     margin-top: 2.5em;
@@ -101,7 +101,7 @@ export const CharacterWrapper = styled.div`
   border-radius: 15px;
   margin: 10px;
   padding: 10px;
-  width: 15%;
+  width: 17%;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -202,5 +202,23 @@ export const FilmTitles = styled.p`
   margin: 5px;
   @media ${device.laptop} {
     margin: 0;
+  }
+`;
+
+export const InputWrapper = styled.input`
+  -webkit-appearance: none;
+  border: 3px solid ${cardBackgroundColor};
+  border-radius: 8px;
+  width: 98.5%;
+  height: 3em;
+  color: ${cardBackgroundColor};
+  margin: 1.2em auto;
+  padding-left: 2.5em;
+  font-size: ${primaryFontSize};
+  position: relative;
+  background: url(${SearchIcon}) no-repeat 8px 8px;
+
+  &::placeholder {
+    color: ${cardBackgroundColor};
   }
 `;
