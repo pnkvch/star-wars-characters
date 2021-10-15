@@ -9,9 +9,8 @@ interface Props {
 
 const Characters = ({ characters, handleViewDetailsClick }: Props) => {
   if (!characters.length) {
-    return <p color="white">No search results</p>;
+    return <p>No search results</p>;
   }
-
   return (
     <>
       {characters.map((item: StarWarsCharacter, index) => {

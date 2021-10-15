@@ -20,6 +20,10 @@ export const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
 
+  p {
+    color: ${secondaryFontColor};
+  }
+
   @media ${device.tablet} {
     margin-top: 2.5em;
   }

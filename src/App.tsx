@@ -103,8 +103,6 @@ const App: React.FC = () => {
     );
   };
 
-  console.log(characters);
-
   return (
     <MainWrapper>
       <HeaderWrapper>
