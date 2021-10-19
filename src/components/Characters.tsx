@@ -1,6 +1,7 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Button, CharacterWrapper } from "../style/styles";
-import { StarWarsCharacter } from "../types";
+import { StarWarsCharacter, StarWarsStateType } from "../types";
 
 interface Props {
   characters: StarWarsCharacter[];
@@ -8,7 +9,10 @@ interface Props {
 }
 
 const Characters = ({ characters, handleViewDetailsClick }: Props) => {
-  if (!characters.length) {
+  const { loading } = useSelector(
+    (state: StarWarsStateType) => state.characterReducer
+  );
+  if (!characters.length && !loading) {
     return <p>No search results</p>;
   }
   return (
