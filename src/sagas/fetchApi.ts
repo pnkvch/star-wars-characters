@@ -5,7 +5,6 @@ export async function fetchData(
 ): Promise<StarWarsResponseData> {
   const url = query ? query : "https://swapi.dev/api/people/";
   const response = await fetch(url);
-  console.log(response);
 
   return await response.json();
 }

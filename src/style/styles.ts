@@ -8,29 +8,27 @@ const cardBackgroundColor = "#e7ecef";
 const primaryFontColor = "#272932";
 const secondaryFontColor = "#e7ecef";
 const primaryFontSize = "1em";
+const containerWidth = "95%";
+const selectHeight = "3em";
 
 interface CharacterProps {
   isCharacter?: boolean;
 }
 
 export const Wrapper = styled.div`
-  width: 95%;
+  width: ${containerWidth};
   margin: auto;
-  margin-top: 4.5em;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  margin-top: calc(1.2em - 10px);
 
   p {
     color: ${secondaryFontColor};
   }
 
-  @media ${device.tablet} {
-    margin-top: 2.5em;
-  }
-
   @media ${device.mobileL} {
     width: 93%;
-    margin-top: 2.5em;
     font-size: 14px;
     justify-content: space-around;
   }
@@ -93,7 +91,7 @@ export const MainWrapper = styled.div`
   flex-direction: column;
   color: ${primaryFontColor};
   align-items: center;
-  @media only screen and (max-width: 1050px) {
+  @media ${device.laptop} {
     font-size: 16px;
   }
 `;
@@ -193,7 +191,7 @@ export const PendingWrapper = styled.div`
   font-size: 22px;
   display: flex;
   flex-wrap: wrap;
-  width: 95%;
+  width: ${containerWidth};
   margin: auto;
   justify-content: space-evenly;
   color: ${secondaryFontColor};
@@ -214,10 +212,10 @@ export const InputWrapper = styled.input`
   -webkit-appearance: none;
   border: 3px solid ${cardBackgroundColor};
   border-radius: 8px;
-  width: 98.5%;
+  width: 85%;
   height: 3em;
   color: ${cardBackgroundColor};
-  margin: 1.2em auto;
+  margin: 1.2em 0;
   padding-left: 2.5em;
   font-size: ${primaryFontSize};
   position: relative;
@@ -230,5 +228,66 @@ export const InputWrapper = styled.input`
   @media ${device.mobileL} {
     background-position-x: 5px;
     background-position-y: 5px;
+  }
+`;
+
+export const SearchFieldWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  width: 70%;
+  margin-top: 4.5em;
+
+  @media ${device.laptop} {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media ${device.tablet} {
+    margin-top: 2.5em;
+  }
+
+  @media ${device.mobileL} {
+    font-size: 14px;
+    width: 93%;
+  }
+`;
+
+export const SelectWrapper = styled.div`
+  select {
+    box-sizing: border-box;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: ${cardBackgroundColor};
+    border: 0;
+    border-radius: 0;
+    color: ${primaryFontColor};
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    height: ${selectHeight};
+    margin: 0;
+    padding: 0.75em 3em 0.75em 1em;
+    width: 100%;
+  }
+
+  border-radius: 4px;
+  box-shadow: 0 1px 3px #bbb;
+  cursor: pointer;
+  height: ${selectHeight};
+  overflow: hidden;
+  position: relative;
+  width: 25%;
+  margin: 1.1rem 0 1.1rem 2em;
+
+  @media ${device.laptop} {
+    margin: 0;
+  }
+
+  @media ${device.tablet} {
+    width: 40%;
+  }
+
+  @media ${device.mobileL} {
+    width: 55%;
   }
 `;

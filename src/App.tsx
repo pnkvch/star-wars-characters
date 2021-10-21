@@ -9,6 +9,8 @@ import {
   HeaderWrapper,
   PendingWrapper,
   InputWrapper,
+  SearchFieldWrapper,
+  SelectWrapper,
 } from "./style/styles";
 import CharacterDetails from "./components/Details";
 import Loader from "react-loader-spinner";
@@ -25,6 +27,7 @@ const App: React.FC = () => {
   const [saveScrollPostion, setSaveScrollPosition] = useState(0);
   const [showNextBtn, setShowNextBtn] = useState(true);
   const [value, setValue] = useState("");
+  const [selectValue, setSelectValue] = useState({ value: "name" });
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -48,6 +51,9 @@ const App: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
+  };
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectValue({ value: e.target.value });
   };
 
   useEffect(() => {
@@ -99,7 +105,7 @@ const App: React.FC = () => {
       return characters;
     }
     return characters.filter((item) =>
-      item.name.toLowerCase().includes(value.toLowerCase())
+      item[selectValue.value].toLowerCase().includes(value.toLowerCase())
     );
   };
 
@@ -108,14 +114,28 @@ const App: React.FC = () => {
       <HeaderWrapper>
         <h1>Star Wars Characters Catalogue</h1>
       </HeaderWrapper>
-      <Wrapper>
+      <SearchFieldWrapper>
         <InputWrapper
           type="search"
-          placeholder="Search character"
+          placeholder={`Search character by ${selectValue.value.replace(
+            "_",
+            " "
+          )}`}
           value={value}
           onChange={handleInputChange}
         />
-
+        <SelectWrapper>
+          <select value={selectValue.value} onChange={handleSelectChange}>
+            <option value="name">Name</option>
+            <option value="birth_year">Birth Year</option>
+            <option value="gender">Gender</option>
+            <option value="eye_color">Eye Color</option>
+            <option value="skin_color">Skin Color</option>
+            <option value="height">Height</option>
+          </select>
+        </SelectWrapper>
+      </SearchFieldWrapper>
+      <Wrapper>
         <Characters
           characters={searchResults()}
           handleViewDetailsClick={handleViewDetailsClick}

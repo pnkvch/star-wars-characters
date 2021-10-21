@@ -1,20 +1,20 @@
 export interface StarWarsCharacter {
-  name: string;
-  height: string;
-  mass: string;
-  hair_color: string;
-  skin_color: string;
-  eye_color: string;
-  birth_year: string;
-  gender: string;
-  homeworld: string;
+  [name: string]: string;
+  [height: string]: string;
+  [mass: string]: string;
+  [hair_color: string]: string;
+  [skin_color: string]: string;
+  [eye_color: string]: string;
+  [birth_year: string]: string;
+  [gender: string]: string;
+  [homeworld: string]: string;
   films: string[];
-  species: string[];
-  vehicles: string[];
-  starships: string[];
-  created: string;
-  edited: string;
-  url: string;
+  [species: string]: string[];
+  [vehicles: string]: string[];
+  [starships: string]: string[];
+  [created: string]: string;
+  [edited: string]: string;
+  [url: string]: string;
 }
 export interface StarWarsMovie {
   characters: string[];
