@@ -32,6 +32,7 @@ export const Wrapper = styled.div`
     width: 93%;
     margin-top: 2.5em;
     font-size: 14px;
+    justify-content: space-around;
   }
 `;
 
@@ -156,8 +157,8 @@ export const CharacterDetailsWrapper = styled.div`
 
   @media ${device.tablet} {
     width: 85%;
-    height: 65%;
-    top: 17%;
+    height: 72%;
+    top: 15%;
   }
 `;
 
@@ -224,5 +225,10 @@ export const InputWrapper = styled.input`
 
   &::placeholder {
     color: ${cardBackgroundColor};
+  }
+
+  @media ${device.mobileL} {
+    background-position-x: 5px;
+    background-position-y: 5px;
   }
 `;
