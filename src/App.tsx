@@ -26,8 +26,8 @@ const App: React.FC = () => {
   });
   const [saveScrollPostion, setSaveScrollPosition] = useState(0);
   const [showNextBtn, setShowNextBtn] = useState(true);
-  const [value, setValue] = useState("");
-  const [selectValue, setSelectValue] = useState({ value: "name" });
+  const [inputFieldValue, setInputFieldValue] = useState("");
+  const [selectFieldValue, setSelectFieldValue] = useState({ value: "name" });
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -44,16 +44,16 @@ const App: React.FC = () => {
   };
 
   const handleBottom = () => {
-    if (showNextBtn && !loading && !value) {
+    if (showNextBtn && !loading && !inputFieldValue) {
       return <Button onClick={handleClick}>Load More</Button>;
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+  const handleInputFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputFieldValue(e.target.value);
   };
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectValue({ value: e.target.value });
+  const handleSelectFieldChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectFieldValue({ value: e.target.value });
   };
 
   useEffect(() => {
@@ -101,11 +101,13 @@ const App: React.FC = () => {
   }
 
   const searchResults = () => {
-    if (!value) {
+    if (!inputFieldValue) {
       return characters;
     }
     return characters.filter((item) =>
-      item[selectValue.value].toLowerCase().includes(value.toLowerCase())
+      item[selectFieldValue.value]
+        .toLowerCase()
+        .includes(inputFieldValue.toLowerCase())
     );
   };
 
@@ -117,15 +119,18 @@ const App: React.FC = () => {
       <SearchFieldWrapper>
         <InputWrapper
           type="search"
-          placeholder={`Search character by ${selectValue.value.replace(
+          placeholder={`Search character by ${selectFieldValue.value.replace(
             "_",
             " "
           )}`}
-          value={value}
-          onChange={handleInputChange}
+          value={inputFieldValue}
+          onChange={handleInputFieldChange}
         />
         <SelectWrapper>
-          <select value={selectValue.value} onChange={handleSelectChange}>
+          <select
+            value={selectFieldValue.value}
+            onChange={handleSelectFieldChange}
+          >
             <option value="name">Name</option>
             <option value="birth_year">Birth Year</option>
             <option value="gender">Gender</option>
